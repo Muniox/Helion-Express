@@ -1,5 +1,6 @@
 const express = require("express");
 const { create } = require("express-handlebars");
+const fortune = require("./library/fortune");
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
+//dodanie plików statycznych
+app.use(express.static(__dirname + "/public"));
+
 //konfiguracja portu na którym nasłuchuje serwer
 const port = process.env.PORT || 3000;
 
@@ -24,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  res.render("about", { fortune: fortune.getFortune() });
 });
 
 //app.use z bledami serwera zawsze ponizej trasowania!
@@ -40,9 +44,6 @@ app.use((err, req, res, next) => {
   res.status(500);
   res.render("500");
 });
-
-//dodanie plików statycznych
-app.use(express.static(__dirname + "/public"));
 
 app.listen(port, () => {
   console.log(`Express został uruchomiony pod adresem http://localhost:${port}`);
