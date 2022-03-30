@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const { create } = require("express-handlebars");
 const fortune = require("./library/fortune");
@@ -46,5 +47,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Express został uruchomiony pod adresem http://localhost:${port}`);
+  console.log(
+    `Express został uruchomiony pod adresem http://localhost:${port}`
+  );
 });

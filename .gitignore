@@ -1,2 +1,4 @@
 #ignorowanie pakietów instalowanych przez npm
 node_modules
+
+.eslintrc.json
