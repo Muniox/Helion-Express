@@ -4,7 +4,8 @@
   "description": "",
   "main": "meadowlark.js",
   "scripts": {
-    "start": "nodemon meadowlark.js"
+    "start": "nodemon meadowlark.js",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,9 @@
     "express": "^4.17.3",
     "express-handlebars": "^6.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "portfinder": "^1.0.28",
+    "puppeteer": "^13.5.2"
+  }
 }

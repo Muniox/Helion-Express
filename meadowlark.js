@@ -1,7 +1,7 @@
 "use strict";
 const express = require("express");
 const { create } = require("express-handlebars");
-const fortune = require("./library/fortune");
+const handlers = require("./library/handlers");
 
 const app = express();
 
@@ -24,30 +24,23 @@ app.use(express.static(__dirname + "/public"));
 const port = process.env.PORT || 3000;
 
 //trasowanie
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.get("/", handlers.home);
 
-app.get("/about", (req, res) => {
-  res.render("about", { fortune: fortune.getFortune() });
-});
+app.get("/about", handlers.about);
 
 //app.use z bledami serwera zawsze ponizej trasowania!
 //Niestandardowa strona 404
-app.use((req, res) => {
-  res.status(404);
-  res.render("404");
-});
+app.use(handlers.notFound);
 
 //Niestandardowa strona 500
-app.use((err, req, res, next) => {
-  console.error(err.message);
-  res.status(500);
-  res.render("500");
-});
+app.use(handlers.serverError);
 
-app.listen(port, () => {
-  console.log(
-    `Express został uruchomiony pod adresem http://localhost:${port}`
-  );
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(
+      `Express został uruchomiony pod adresem http://localhost:${port}`
+    );
+  });
+} else {
+  module.exports = app;
+}
