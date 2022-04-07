@@ -25,3 +25,12 @@ exports.serverError = (err, req, res, next) => {
   res.render("500");
 };
 /*eslint-enable no-unused-vars */
+
+//wyswietl nagłówki
+exports.headers = (req, res) => {
+  res.type("text/plain");
+  const headers = Object.entries(req.headers).map(
+    ([key, value]) => `${key}: ${value}`
+  );
+  res.send(headers.join("\n"));
+};
